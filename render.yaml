@@ -1,14 +1,10 @@
-services:
-  # PostgreSQL Database
-  - type: postgresql
-    name: authproject-db
+databases:
+  - name: authproject-db
     plan: starter
-    ipAllowList: []
-    databases:
-      - name: authproject
+    databaseName: authproject
     user: authproject
 
-  # Django Web Service
+services:
   - type: web
     name: authproject
     env: python
