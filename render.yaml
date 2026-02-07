@@ -1,27 +1,28 @@
 services:
+  # PostgreSQL Database
   - type: postgresql
     name: authproject-db
     plan: starter
     ipAllowList: []
+    databases:
+      - name: authproject
+    user: authproject
 
+  # Django Web Service
   - type: web
     name: authproject
-    runtime: python
-    pythonVersion: "3.12.1"
-    buildCommand: pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py migrate
+      python manage.py collectstatic --noinput
     startCommand: gunicorn AuthProject.wsgi:application
     envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: authproject-db
           property: connectionString
-      - key: SECRET_KEY
-        generateValue: true
-      - key: DEBUG
-        value: 'False'
-    health:
-      path: /login/
-      poll_interval_seconds: 10
-      timeout_seconds: 5
-    numInstances: 1
-    autoDeploy: true
+      - key: DJANGO_SETTINGS_MODULE
+        value: AuthProject.settings
+      - key: PYTHON_VERSION
+        value: 3.11.7
