@@ -1,0 +1,13 @@
+body.about-bg {
+    background-color: #e0f7fa;
+    padding: 40px;
+    text-align: center;
+}
+
+h1 {
+    color: #006064;
+    font-size: 3rem;
+    border-bottom: 2px solid #00acc1;
+    display: inline-block;
+    padding-bottom: 10px;
+}

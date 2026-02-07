@@ -1,0 +1,37 @@
+body.home-bg {
+    background-color: #f4f7f6;
+    text-align: center;
+    /* padding-top: 1px; */
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+button {
+    background-color: white;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 0;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+button a {
+    display: block;
+    padding: 12px 24px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #2c3e50;
+}
+
+button:hover a {
+    color: white;
+}

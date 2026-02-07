@@ -1,0 +1,63 @@
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #2c3e50;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar a {
+    color: #ecf0f1;
+    text-align: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #34495e;
+    color: #fff;
+}
+
+.navbar .inside {
+    display: flex;
+    gap: 10px;
+}
+
+/* Messages */
+.msg {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    margin: 20px auto;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Footer / User Info */
+center h3 {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-top: 30px;
+    font-weight: normal;
+}

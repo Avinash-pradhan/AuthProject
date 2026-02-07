@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock %}
+
+{% block body_class %}home-bg{% endblock %}
+
+{% block main %}
+<h1>This is home page</h1>
+<button><a href="{% url 'change_password' %}">Change Password</a></button>
+<button><a href="{% url 'password_reset' %}">Forgot Password?</a></button>
+
+{% endblock %}
