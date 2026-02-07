@@ -7,8 +7,3 @@ services:
       python manage.py collectstatic --noinput
       python manage.py migrate
     startCommand: gunicorn AuthProject.wsgi:application
-    envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: AuthProject.settings
-      - key: PYTHON_VERSION
-        value: 3.11.7
