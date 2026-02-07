@@ -2,6 +2,13 @@
 __pycache__/
 db.sqlite3
 .env
+myenv/
+venv/
+env/
 .DS_Store
-media/
 staticfiles/
+media/
+*.log
+
+# If you are using VS Code
+.vscode/
