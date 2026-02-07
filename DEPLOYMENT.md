@@ -35,6 +35,25 @@ Render automatically sets:
 - `DEBUG` - Set to `False` for production
 - `ALLOWED_HOSTS` - Configured for `*.onrender.com`
 
+**You MUST set these for password reset emails to work:**
+
+- `EMAIL_HOST` - SMTP server (e.g., `smtp.gmail.com`)
+- `EMAIL_PORT` - SMTP port (e.g., `587`)
+- `EMAIL_USE_TLS` - Use TLS (e.g., `True`)
+- `EMAIL_HOST_USER` - Your email address
+- `EMAIL_HOST_PASSWORD` - Your email password or app-specific password
+- `DEFAULT_FROM_EMAIL` - Sender email for password reset
+
+### Setting Up Email on Render
+
+1. Go to your Render service dashboard
+2. Click "Environment" → "Add Secret"
+3. Add each email variable above
+4. For Gmail: Use an [App Password](https://support.google.com/accounts/answer/185833), NOT your main password
+5. Redeploy the service
+
+Without these, password reset emails will fail!
+
 ## Local Development
 
 1. **Install Dependencies**
@@ -81,6 +100,18 @@ When you request a password reset:
 - `requirements.txt` - Python dependencies with gunicorn, dj-database-url, whitenoise
 - `AuthProject/settings.py` - Updated for environment variables and static file handling
 
+## Security Configuration (Automatic on Render)
+
+When `DEBUG=False` (production), the following are enabled:
+
+- `SECURE_SSL_REDIRECT=True` - All requests redirect to HTTPS
+- `SESSION_COOKIE_SECURE=True` - Sessions only via HTTPS
+- `CSRF_COOKIE_SECURE=True` - CSRF tokens only via HTTPS
+- `SECURE_HSTS_SECONDS=31536000` - HTTP Strict Transport Security for 1 year
+- `CSRF_TRUSTED_ORIGINS` - Configured for Render domains
+
+These are automatically applied when deployed to Render (DEBUG=False by render.yaml).
+
 ## Troubleshooting
 
 ### Build Fails
@@ -100,6 +131,27 @@ When you request a password reset:
 - Render auto-injects `DATABASE_URL`
 - Settings.py automatically uses `dj_database_url.config()`
 - No manual DATABASE_URL configuration needed
+
+### Email / Password Reset Not Working
+
+**Problem:** Password reset emails don't arrive or crash
+
+**Solution:**
+
+1. Ensure all `EMAIL_*` environment variables are set in Render (see "Setting Up Email on Render" above)
+2. For Gmail: Generate an [App Password](https://support.google.com/accounts/answer/185833) and use that, not your main password
+3. Test locally: `python manage.py shell` → `from django.core.mail import send_mail` → `send_mail(...)`
+4. Check Render logs for SMTP errors: Dashboard → Logs tab
+
+Example Gmail setup:
+
+```
+EMAIL_HOST = smtp.gmail.com
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = your-gmail@gmail.com
+EMAIL_HOST_PASSWORD = xxxx xxxx xxxx xxxx  # 16-char App Password
+```
 
 ### Create Admin User on Render
 
