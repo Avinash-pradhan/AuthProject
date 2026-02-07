@@ -1,23 +1,13 @@
-databases:
-  - name: authproject-db
-    plan: starter
-    databaseName: authproject
-    user: authproject
-
 services:
   - type: web
     name: authproject
     env: python
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py migrate
       python manage.py collectstatic --noinput
+      python manage.py migrate
     startCommand: gunicorn AuthProject.wsgi:application
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: authproject-db
-          property: connectionString
       - key: DJANGO_SETTINGS_MODULE
         value: AuthProject.settings
       - key: PYTHON_VERSION
