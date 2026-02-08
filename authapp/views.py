@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+﻿from django.shortcuts import render,redirect
 from authapp.forms import SignUpForm
 from authapp.forms import LoginForm
 from django.contrib.auth.models import User
@@ -35,7 +35,7 @@ def login_view(request):
         if form.is_valid():
             u=form.cleaned_data['username']
             p=form.cleaned_data['password']
-            user=authenticate(username=u,password=p)
+            user=authenticate(request, username=u, password=p)
             if user:
                 login(request,user)
                 messages.success(request,'Logged in successfully....')
