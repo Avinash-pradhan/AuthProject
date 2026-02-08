@@ -1,22 +1,28 @@
 services:
   - type: web
     name: authproject
-    env: python
+    runtime: python
     plan: free
-    buildCommand: |
-      pip install -r requirements.txt
-      python manage.py collectstatic --noinput
-    startCommand: "gunicorn AuthProject.wsgi:application"
+    buildCommand: pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
+    startCommand: gunicorn AuthProject.wsgi:application
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.7
       - key: DEBUG
         value: "False"
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: authproject.onrender.com,localhost,127.0.0.1
+        value: "*.onrender.com,localhost,127.0.0.1"
+      - key: DJANGO_SUPERUSER_PASSWORD
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: postgres
+          property: connectionString
 databases:
   - name: postgres
+    databaseName: authproject_db
+    user: authproject_user
     plan: free
     ipAllowList: []
